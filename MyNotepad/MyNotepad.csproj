@@ -92,17 +92,17 @@
     <Compile Include="View\OpenFileForm.Designer.cs">
       <DependentUpon>OpenFileForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Enum\Format.cs" />
-    <Compile Include="Presentation\Static\Compression.cs" />
-    <Compile Include="Presentation\Static\Highlighter.cs" />
-    <Compile Include="Presentation\Interfaces\INewFileNameView.cs" />
-    <Compile Include="Presentation\Interfaces\INotepadView.cs" />
-    <Compile Include="Presentation\Interfaces\IOpenFileView.cs" />
-    <Compile Include="Presentation\Interfaces\IPresenter.cs" />
-    <Compile Include="Presentation\Interfaces\IView.cs" />
-    <Compile Include="Presentation\Presenters\NewFileNamePresenter.cs" />
-    <Compile Include="Presentation\Presenters\NotepadPresenter.cs" />
-    <Compile Include="Presentation\Presenters\OpenFilePresenter.cs" />
+    <Compile Include="Presenter\Enum\Format.cs" />
+    <Compile Include="Presenter\Static\Compression.cs" />
+    <Compile Include="Presenter\Static\Highlighter.cs" />
+    <Compile Include="Presenter\Interfaces\INewFileNameView.cs" />
+    <Compile Include="Presenter\Interfaces\INotepadView.cs" />
+    <Compile Include="Presenter\Interfaces\IOpenFileView.cs" />
+    <Compile Include="Presenter\Interfaces\IPresenter.cs" />
+    <Compile Include="Presenter\Interfaces\IView.cs" />
+    <Compile Include="Presenter\Presenters\NewFileNamePresenter.cs" />
+    <Compile Include="Presenter\Presenters\NotepadPresenter.cs" />
+    <Compile Include="Presenter\Presenters\OpenFilePresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="View\EnterFileNameForm.resx">
