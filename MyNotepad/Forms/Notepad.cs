@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FastColoredTextBoxNS;
@@ -23,8 +24,8 @@ namespace MyNotepad
         public event Func<Task<string>> OpenFile;
         public event Action NewFile;
         public event Action ApplicationStop;
-        public event Action<string> FormatChanged;
-        public event Action<FastColoredTextBox> TextBoxDataChanged;
+        public event Action<Format> FormatChanged;
+        public event Action<TextChangedEventArgs> TextBoxDataChanged;
 
         public NotepadForm()
         {
@@ -90,20 +91,29 @@ namespace MyNotepad
 
         private void TxtFormatMenuItem_Click(object sender, EventArgs e)
         {
-            FormatChanged("txt");
+            dataTextBox.Language = Language.Custom;
+            FormatChanged(Format.Txt);
         }
         private void XmlFormatMenuItem_Click(object sender, EventArgs e)
         {
-            FormatChanged("xml");
+            dataTextBox.Language = Language.XML;
+            FormatChanged(Format.Xml);
         }
         private void JsonFormatMenuItem_Click(object sender, EventArgs e)
         {
-            FormatChanged("json");
+            dataTextBox.Language = Language.Custom;
+            FormatChanged(Format.Json);
         }
-
-        void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-           
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {            
+            try
+            {
+                TextBoxDataChanged(e);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
     }
 }

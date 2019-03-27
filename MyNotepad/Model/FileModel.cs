@@ -1,4 +1,5 @@
 ﻿using System;
+using MyNotepad.Logic;
 
 namespace MyNotepad.DataLayer
 {
@@ -18,6 +19,6 @@ namespace MyNotepad.DataLayer
             }
         }
         public string LastChangeDate { get; protected set; }
-        public string Format { get; set; }
+        public Format Format { get; set; }
     }
 }

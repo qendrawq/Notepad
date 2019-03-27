@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FastColoredTextBoxNS;
@@ -21,6 +22,7 @@ namespace MyNotepad.Logic
         {
             _view = view;
             _repository = repository;
+            CurrentFile = new File();
             HasChanged = false;
 
             _view.SaveFile += SaveFile;
@@ -31,9 +33,17 @@ namespace MyNotepad.Logic
             _view.TextBoxDataChanged += ApplyHighlights;
         }
 
-        private void ApplyHighlights(FastColoredTextBox textBox)
+        private void ApplyHighlights(TextChangedEventArgs args)
         {
-
+            switch (CurrentFile.Format)
+            {
+                case Format.Xml:
+                    Highlighter.HighlightXml(args);
+                    break;
+                case Format.Json:
+                    Highlighter.HighlightJson(args);
+                    break;
+            }
         }
 
         public void Run()
@@ -43,7 +53,7 @@ namespace MyNotepad.Logic
 
         private async void SaveFile(string data)
         {
-            if (CurrentFile == null)
+            if (String.IsNullOrEmpty(CurrentFile.Name))
             {
                 var newFileNamePresenter= new NewFileNamePresenter(new EnterFileNameForm(), new FileRepository());
                 newFileNamePresenter.Run();
@@ -92,7 +102,7 @@ namespace MyNotepad.Logic
                     return;
             }
 
-            CurrentFile = null;
+            CurrentFile = new File();
             HasChanged = false;
         }
     }

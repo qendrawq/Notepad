@@ -11,8 +11,8 @@ namespace MyNotepad.Logic
         event Func<Task<string>> OpenFile;
         event Action NewFile;
         event Action ApplicationStop;
-        event Action<string> FormatChanged;
-        event Action<FastColoredTextBox> TextBoxDataChanged;
+        event Action<Format> FormatChanged;
+        event Action<TextChangedEventArgs> TextBoxDataChanged;
 
 
         void ShowError(string errorMessage);
