@@ -1,7 +1,6 @@
-﻿using FastColoredTextBoxNS;
-using MyNotepad.DataLayer;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using ScintillaNET;
 
 namespace MyNotepad.Logic
 {
@@ -11,8 +10,7 @@ namespace MyNotepad.Logic
         event Func<Task<string>> OpenFile;
         event Action NewFile;
         event Action ApplicationStop;
-        event Action<Format> FormatChanged;
-        event Action<TextChangedEventArgs> TextBoxDataChanged;
+        event Action<Scintilla,Format> FormatChanged;
 
 
         void ShowError(string errorMessage);

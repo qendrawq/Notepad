@@ -1,31 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using ICSharpCode.SharpZipLib.Zip;
-using MyNotepad.DataLayer;
-using MyNotepad.Forms;
 using MyNotepad.Logic;
-using File = MyNotepad.DataLayer.File;
+using ScintillaNET;
 
 namespace MyNotepad
 {
     public partial class NotepadForm : Form, INotepadView
     {
+        private bool HasChanged { get; set; }
+
         public event Action<string> SaveFile;
         public event Func<Task<string>> OpenFile;
         public event Action NewFile;
         public event Action ApplicationStop;
-        public event Action<Format> FormatChanged;
-        public event Action<TextChangedEventArgs> TextBoxDataChanged;
+        public event Action<Scintilla, Format> FormatChanged;
+        public event Action<Scintilla> TextBoxDataChanged;
 
         public NotepadForm()
         {
@@ -34,50 +24,56 @@ namespace MyNotepad
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
-            //if (CurrentFile != null)
-            //{
-            //    var window = MessageBox.Show(
-            //        "Do you want save file?",
-            //        "Notepad Closing",
-            //        MessageBoxButtons.YesNoCancel);
+            if (HasChanged)
+            {
+                var window = MessageBox.Show(
+                    "Do you want save file?",
+                    "Notepad Closing",
+                    MessageBoxButtons.YesNoCancel);
 
-            //    switch (window)
-            //    {
-            //        case DialogResult.Yes:
-            //            SaveFile(dataRichTextBox.Text);
-            //            break;
-            //        case DialogResult.Cancel:
-            //            e.Cancel = true;
-            //            break;
-            //    }
-            //}
+                switch (window)
+                {
+                    case DialogResult.Yes:
+                        SaveFile(dataTextBox.Text);
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
         }
         private void OnFormClosed(object sender, FormClosedEventArgs e)
         {
             ApplicationStop();
         }
-       
+
         private void NewMenuItemClick(object sender, EventArgs e)
         {
+            if (HasChanged)
+            {
+                var result = MessageBox.Show(
+                    "All unsaved data will be lost! Do you want to continue?",
+                    "Create new file",
+                    MessageBoxButtons.OKCancel);
+                if (result == DialogResult.Cancel)
+                    return;
+
+            }
+
             NewFile();
-            dataTextBox.Clear();
+            dataTextBox.Text = "";
+            HasChanged = false;
         }
         private void OpenMenuItemClick(object sender, EventArgs e)
         {
             dataTextBox.Text = OpenFile().Result;
+            FormatChanged(dataTextBox, Format.Default);
+            HasChanged = false;
         }
         private void SaveMenuItemClick(object sender, EventArgs e)
         {
             SaveFile(dataTextBox.Text);
-        }
-
-        private void Form_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.S)
-            {
-                SaveFile(dataTextBox.Text);
-                e.SuppressKeyPress = true;
-            }
+            HasChanged = false;
         }
 
         public new void Show()
@@ -86,29 +82,30 @@ namespace MyNotepad
         }
         public void ShowError(string errorMessage)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(errorMessage);
         }
 
         private void TxtFormatMenuItem_Click(object sender, EventArgs e)
         {
-            dataTextBox.Language = Language.Custom;
-            FormatChanged(Format.Txt);
+            FormatChanged(dataTextBox, Format.Txt);
+            TextBox_TextChanged(dataTextBox, null);
         }
         private void XmlFormatMenuItem_Click(object sender, EventArgs e)
         {
-            dataTextBox.Language = Language.XML;
-            FormatChanged(Format.Xml);
+            FormatChanged(dataTextBox, Format.Xml);
+            TextBox_TextChanged(dataTextBox, null);
         }
         private void JsonFormatMenuItem_Click(object sender, EventArgs e)
         {
-            dataTextBox.Language = Language.Custom;
-            FormatChanged(Format.Json);
+            FormatChanged(dataTextBox, Format.Json);
+            TextBox_TextChanged(dataTextBox, null);
         }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {            
             try
             {
-                TextBoxDataChanged(e);
+                TextBoxDataChanged(dataTextBox);
+                HasChanged = true;
             }
             catch (Exception exception)
             {

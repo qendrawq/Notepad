@@ -4,6 +4,7 @@
     {
         Txt,
         Xml,
-        Json
+        Json,
+        Default
     }
 }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
 using MyNotepad.DataLayer;
 using MyNotepad.Forms;
+using ScintillaNET;
 using File = MyNotepad.DataLayer.File;
-
 
 namespace MyNotepad.Logic
 {
@@ -16,32 +12,37 @@ namespace MyNotepad.Logic
         private readonly INotepadView _view;
         private readonly IRepository<File> _repository;
         private File CurrentFile { get; set; }
-        private bool HasChanged { get; set; }
 
         public NotepadPresenter(INotepadView view, IRepository<File> repository)
         {
             _view = view;
             _repository = repository;
             CurrentFile = new File();
-            HasChanged = false;
 
             _view.SaveFile += SaveFile;
             _view.OpenFile += OpenFile;
-            _view.NewFile += () => NewFile();
+            _view.NewFile += NewFile;
             _view.ApplicationStop += () => _repository.Dispose();
-            _view.FormatChanged += (t) => CurrentFile.Format = t;
-            _view.TextBoxDataChanged += ApplyHighlights;
+            _view.FormatChanged += ApplyHighlights;
         }
 
-        private void ApplyHighlights(TextChangedEventArgs args)
+        private void ApplyHighlights(Scintilla textBox, Format format)
         {
+            if (format != Format.Default)
+            {
+                CurrentFile.Format = format;
+            }
+
             switch (CurrentFile.Format)
             {
                 case Format.Xml:
-                    Highlighter.HighlightXml(args);
+                    Highlighter.HighlightXml(textBox);
                     break;
                 case Format.Json:
-                    Highlighter.HighlightJson(args);
+                    Highlighter.HighlightJson(textBox);
+                    break;
+                case Format.Txt:
+                    Highlighter.HighlightTxt(textBox);
                     break;
             }
         }
@@ -91,19 +92,8 @@ namespace MyNotepad.Logic
         }
 
         private void NewFile()
-        {
-            if (CurrentFile != null)
-            {
-                var result = MessageBox.Show(
-                    "All unsaved data will be lost! Do you want to continue?",
-                    "Create new file",
-                    MessageBoxButtons.OKCancel);
-                if (result == DialogResult.Cancel)
-                    return;
-            }
-
+        {           
             CurrentFile = new File();
-            HasChanged = false;
         }
     }
 }

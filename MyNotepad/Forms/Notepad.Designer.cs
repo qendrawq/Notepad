@@ -30,8 +30,6 @@ namespace MyNotepad
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotepadForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,9 +40,8 @@ namespace MyNotepad
             this.jSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.dataTextBox = new ScintillaNET.Scintilla();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTextBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -73,14 +70,14 @@ namespace MyNotepad
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.NewMenuItemClick);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenMenuItemClick);
             // 
@@ -91,7 +88,7 @@ namespace MyNotepad
             this.xMLToolStripMenuItem,
             this.jSONToolStripMenuItem});
             this.changeFormatToolStripMenuItem.Name = "changeFormatToolStripMenuItem";
-            this.changeFormatToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.changeFormatToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.changeFormatToolStripMenuItem.Text = "Change format";
             // 
             // tXTToolStripMenuItem
@@ -118,47 +115,24 @@ namespace MyNotepad
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.closeToolStripMenuItem.Text = "Close";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
-            this.saveToolStripMenuItem.Text = "Save                    Ctrl+S";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveMenuItemClick);
             // 
             // dataTextBox
             // 
-            this.dataTextBox.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.dataTextBox.AutoScrollMinSize = new System.Drawing.Size(31, 18);
-            this.dataTextBox.BackBrush = null;
-            this.dataTextBox.CharHeight = 18;
-            this.dataTextBox.CharWidth = 10;
-            this.dataTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.dataTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.dataTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.dataTextBox.IsReplaceMode = false;
             this.dataTextBox.Location = new System.Drawing.Point(0, 28);
             this.dataTextBox.Name = "dataTextBox";
-            this.dataTextBox.Paddings = new System.Windows.Forms.Padding(0);
-            this.dataTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.dataTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("dataTextBox.ServiceColors")));
             this.dataTextBox.Size = new System.Drawing.Size(1072, 615);
-            this.dataTextBox.TabIndex = 2;
-            this.dataTextBox.Zoom = 100;
-            this.dataTextBox.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.TextBox_TextChanged);
+            this.dataTextBox.TabIndex = 1;
+            this.dataTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // NotepadForm
             // 
@@ -170,13 +144,11 @@ namespace MyNotepad
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "NotepadForm";
-            this.Text = "Form1";
+            this.Text = "Notepad";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTextBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,11 +162,11 @@ namespace MyNotepad
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private FastColoredTextBoxNS.FastColoredTextBox dataTextBox;
         private ToolStripMenuItem changeFormatToolStripMenuItem;
         private ToolStripMenuItem tXTToolStripMenuItem;
         private ToolStripMenuItem xMLToolStripMenuItem;
         private ToolStripMenuItem jSONToolStripMenuItem;
+        private ScintillaNET.Scintilla dataTextBox;
     }
 }
 
