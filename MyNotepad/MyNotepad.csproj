@@ -74,25 +74,25 @@
     <Compile Include="Model\FileModel.cs" />
     <Compile Include="Model\FilesRepository.cs" />
     <Compile Include="Model\IRepository.cs" />
-    <Compile Include="Forms\EnterFileNameForm.cs">
+    <Compile Include="View\EnterFileNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\EnterFileNameForm.Designer.cs">
+    <Compile Include="View\EnterFileNameForm.Designer.cs">
       <DependentUpon>EnterFileNameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Notepad.cs">
+    <Compile Include="View\Notepad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Notepad.Designer.cs">
+    <Compile Include="View\Notepad.Designer.cs">
       <DependentUpon>Notepad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\OpenFileForm.cs">
+    <Compile Include="View\OpenFileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\OpenFileForm.Designer.cs">
+    <Compile Include="View\OpenFileForm.Designer.cs">
       <DependentUpon>OpenFileForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Enam\Format.cs" />
+    <Compile Include="Presentation\Enum\Format.cs" />
     <Compile Include="Presentation\Static\Compression.cs" />
     <Compile Include="Presentation\Static\Highlighter.cs" />
     <Compile Include="Presentation\Interfaces\INewFileNameView.cs" />
@@ -100,18 +100,18 @@
     <Compile Include="Presentation\Interfaces\IOpenFileView.cs" />
     <Compile Include="Presentation\Interfaces\IPresenter.cs" />
     <Compile Include="Presentation\Interfaces\IView.cs" />
-    <Compile Include="Presentation\NewFileNamePresenter.cs" />
-    <Compile Include="Presentation\NotepadPresenter.cs" />
-    <Compile Include="Presentation\OpenFilePresenter.cs" />
+    <Compile Include="Presentation\Presenters\NewFileNamePresenter.cs" />
+    <Compile Include="Presentation\Presenters\NotepadPresenter.cs" />
+    <Compile Include="Presentation\Presenters\OpenFilePresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\EnterFileNameForm.resx">
+    <EmbeddedResource Include="View\EnterFileNameForm.resx">
       <DependentUpon>EnterFileNameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Notepad.resx">
+    <EmbeddedResource Include="View\Notepad.resx">
       <DependentUpon>Notepad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OpenFileForm.resx">
+    <EmbeddedResource Include="View\OpenFileForm.resx">
       <DependentUpon>OpenFileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
