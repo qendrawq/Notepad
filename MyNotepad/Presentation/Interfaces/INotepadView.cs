@@ -12,7 +12,6 @@ namespace MyNotepad.Logic
         event Action ApplicationStop;
         event Action<Scintilla,Format> FormatChanged;
 
-
         void ShowError(string errorMessage);
     }
 }

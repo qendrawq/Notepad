@@ -8,8 +8,7 @@ namespace MyNotepad.Logic
 {
     static public class Compression
     {
-        private const int LEVEL_OF_COMPRESSION = 9; //from 0-9
-
+        private const int LEVEL_OF_COMPRESSION = 9;
 
         static public byte[] CompressToByteArray(string data, string zipEntryName)
         {

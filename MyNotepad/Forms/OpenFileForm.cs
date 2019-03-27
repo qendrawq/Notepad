@@ -1,12 +1,5 @@
-﻿using MyNotepad.DataLayer;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyNotepad.Logic;
 
@@ -24,7 +17,7 @@ namespace MyNotepad.Forms
 
         private void OnFormLoad(object sender, EventArgs e)
         {
-                listBox1.DataSource = FormLoad();
+            listBox1.DataSource = FormLoad();
         }
 
         private void FileClick(object sender, MouseEventArgs e)

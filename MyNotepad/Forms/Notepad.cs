@@ -56,7 +56,6 @@ namespace MyNotepad
                     MessageBoxButtons.OKCancel);
                 if (result == DialogResult.Cancel)
                     return;
-
             }
 
             NewFile();
@@ -97,7 +96,6 @@ namespace MyNotepad
         {
             FormatChanged(dataTextBox, Format.Json);
         }
-
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             HasChanged = true;

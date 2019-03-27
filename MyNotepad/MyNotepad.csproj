@@ -100,7 +100,6 @@
     <Compile Include="Presentation\Interfaces\IOpenFileView.cs" />
     <Compile Include="Presentation\Interfaces\IPresenter.cs" />
     <Compile Include="Presentation\Interfaces\IView.cs" />
-    <Compile Include="Presentation\MainLogic.cs" />
     <Compile Include="Presentation\NewFileNamePresenter.cs" />
     <Compile Include="Presentation\NotepadPresenter.cs" />
     <Compile Include="Presentation\OpenFilePresenter.cs" />

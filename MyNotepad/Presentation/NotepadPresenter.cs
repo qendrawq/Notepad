@@ -7,7 +7,7 @@ using File = MyNotepad.DataLayer.File;
 
 namespace MyNotepad.Logic
 {
-    public class NotepadPresenter : IPresenter
+    public class NotepadPresenter : IPresenter, IDisposable
     {
         private readonly INotepadView _view;
         private readonly IRepository<File> _repository;
@@ -22,7 +22,7 @@ namespace MyNotepad.Logic
             _view.SaveFile += SaveFile;
             _view.OpenFile += OpenFile;
             _view.NewFile += NewFile;
-            _view.ApplicationStop += () => _repository.Dispose();
+            _view.ApplicationStop += Dispose;
             _view.FormatChanged += ApplyHighlights;
         }
 
@@ -92,6 +92,11 @@ namespace MyNotepad.Logic
         private void NewFile()
         {           
             CurrentFile = new File();
+        }
+
+        public void Dispose()
+        {
+            _repository.Dispose();
         }
     }
 }
