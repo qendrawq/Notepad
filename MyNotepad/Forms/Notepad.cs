@@ -15,7 +15,6 @@ namespace MyNotepad
         public event Action NewFile;
         public event Action ApplicationStop;
         public event Action<Scintilla, Format> FormatChanged;
-        public event Action<Scintilla> TextBoxDataChanged;
 
         public NotepadForm()
         {
@@ -66,8 +65,9 @@ namespace MyNotepad
         }
         private void OpenMenuItemClick(object sender, EventArgs e)
         {
-            dataTextBox.Text = OpenFile().Result;
+            var text = OpenFile().Result;         
             FormatChanged(dataTextBox, Format.Default);
+            dataTextBox.Text = text;
             HasChanged = false;
         }
         private void SaveMenuItemClick(object sender, EventArgs e)
@@ -88,29 +88,19 @@ namespace MyNotepad
         private void TxtFormatMenuItem_Click(object sender, EventArgs e)
         {
             FormatChanged(dataTextBox, Format.Txt);
-            TextBox_TextChanged(dataTextBox, null);
         }
         private void XmlFormatMenuItem_Click(object sender, EventArgs e)
         {
             FormatChanged(dataTextBox, Format.Xml);
-            TextBox_TextChanged(dataTextBox, null);
         }
         private void JsonFormatMenuItem_Click(object sender, EventArgs e)
         {
             FormatChanged(dataTextBox, Format.Json);
-            TextBox_TextChanged(dataTextBox, null);
         }
+
         private void TextBox_TextChanged(object sender, EventArgs e)
-        {            
-            try
-            {
-                TextBoxDataChanged(dataTextBox);
-                HasChanged = true;
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
+        {
+            HasChanged = true;
         }
     }
 }

@@ -61,11 +61,9 @@ namespace MyNotepad.Logic
 
                 if (!String.IsNullOrEmpty(newFileNamePresenter.NewFileName))
                 {
-                    CurrentFile = new File()
-                    {
-                        Name = newFileNamePresenter.NewFileName,
-                        Data = Compression.CompressToByteArray(data, newFileNamePresenter.NewFileName)
-                    };
+                    CurrentFile.Name = newFileNamePresenter.NewFileName;
+                    CurrentFile.Data = Compression.CompressToByteArray(data, newFileNamePresenter.NewFileName);
+
                     await _repository.CreateAsync(CurrentFile);
                 }
             }
