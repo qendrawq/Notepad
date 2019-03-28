@@ -25,6 +25,11 @@ namespace MyNotepad.Forms
             ChoseFile(listBox1.SelectedItem.ToString());
         }
 
+        private void OkButtonClick(object sender, EventArgs e)
+        {
+            ChoseFile(listBox1.SelectedItem.ToString());
+        }
+
         public new void Show()
         {
             ShowDialog();
@@ -34,5 +39,6 @@ namespace MyNotepad.Forms
         {
             MessageBox.Show(errorMessage);
         }
+
     }
 }
