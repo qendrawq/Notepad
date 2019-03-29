@@ -6,6 +6,9 @@ using ScintillaNET;
 
 namespace MyNotepad
 {
+    /// <summary>
+    /// Main form of application. Privide work with the file.
+    /// </summary>
     public partial class NotepadForm : Form, INotepadView
     {
         private bool HasChanged { get; set; }
@@ -75,10 +78,17 @@ namespace MyNotepad
             HasChanged = false;
         }
 
+        /// <summary>
+        /// Opens form as a dialog
+        /// </summary>
         public new void Show()
         {
             Application.Run(this);
         }
+        /// <summary>
+        /// Show error message in messagebox
+        /// </summary>
+        /// <param name="errorMessage"> Message to dispaly </param>
         public void ShowError(string errorMessage)
         {
             MessageBox.Show(errorMessage);

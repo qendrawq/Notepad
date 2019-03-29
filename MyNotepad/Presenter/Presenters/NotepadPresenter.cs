@@ -7,6 +7,9 @@ using File = MyNotepad.DataLayer.File;
 
 namespace MyNotepad.Logic
 {
+    /// <summary>
+    /// Provides communication between Model and Main Views for work with files.
+    /// </summary>
     public class NotepadPresenter : IPresenter, IDisposable
     {
         private readonly INotepadView _view;
@@ -47,6 +50,9 @@ namespace MyNotepad.Logic
             }
         }
 
+        /// <summary>
+        /// Shows view, for work with files.
+        /// </summary>
         public void Run()
         {
             _view.Show();

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyNotepad.DataLayer;
 using MyNotepad.Logic;
@@ -18,9 +15,8 @@ namespace MyNotepad
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var presenter = new NotepadPresenter(new NotepadForm(), new FileRepository()); // Dependency Injection
+            var presenter = new NotepadPresenter(new NotepadForm(), new FileRepository());
             presenter.Run();
-            //Application.Run(new Form1());
         }
     }
 }

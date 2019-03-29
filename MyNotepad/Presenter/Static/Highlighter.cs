@@ -3,8 +3,15 @@ using ScintillaNET;
 
 namespace MyNotepad.Logic
 {
+    /// <summary>
+    /// Static class for applying styles for highliting syntax
+    /// </summary>
     static public class Highlighter
     {
+        /// <summary>
+        /// Apply xml syntax highlighting
+        /// </summary>
+        /// <param name="textArea">Scintilla object</param>
         static public void HighlightXml(Scintilla textArea)
         {
             textArea.StyleResetDefault();
@@ -21,6 +28,10 @@ namespace MyNotepad.Logic
             textArea.Lexer = Lexer.Xml;
         }
 
+        /// <summary>
+        /// Apply json syntax highlighting
+        /// </summary>
+        /// <param name="textArea">Scintilla object</param>
         static public void HighlightJson(Scintilla textArea)
         {
             textArea.StyleResetDefault();
@@ -38,6 +49,10 @@ namespace MyNotepad.Logic
             textArea.Lexer = Lexer.Json;
         }
 
+        /// <summary>
+        /// Reset styles
+        /// </summary>
+        /// <param name="textArea">Scintilla object</param>
         static public void HighlightTxt(Scintilla textArea)
         {
             textArea.StyleResetDefault();

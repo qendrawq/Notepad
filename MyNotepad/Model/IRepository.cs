@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace MyNotepad.DataLayer
 {
+    /// <summary>
+    /// The repository provides work with a database of files.
+    /// </summary>
     public interface IRepository<T> : IDisposable
         where T : class
     {

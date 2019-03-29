@@ -6,10 +6,19 @@ using System.Text;
 
 namespace MyNotepad.Logic
 {
+    /// <summary>
+    /// Static class for data compression and decompression
+    /// </summary>
     static public class Compression
     {
         private const int LEVEL_OF_COMPRESSION = 9;
 
+        /// <summary>
+        /// Compress data
+        /// </summary>
+        /// <param name="data">String to compress</param>
+        /// <param name="zipEntryName">File name</param>
+        /// <returns>Byte array of compressed data</returns>
         static public byte[] CompressToByteArray(string data, string zipEntryName)
         {
             MemoryStream dataToStream = new MemoryStream(Encoding.UTF8.GetBytes(data));
@@ -35,6 +44,11 @@ namespace MyNotepad.Logic
             return outputMemStream.ToArray();
         }
 
+        /// <summary>
+        /// Decompress data
+        /// </summary>
+        /// <param name="archiveFilenameIn">File name</param>
+        /// <returns>Decompressed string</returns>
         static public string ExtractToString(byte[] archiveFilenameIn)
         {
             ZipFile zf = null;
