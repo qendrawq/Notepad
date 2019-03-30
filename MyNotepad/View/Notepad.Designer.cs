@@ -40,7 +40,8 @@ namespace MyNotepad
             this.jSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataTextBox = new ScintillaNET.Scintilla();
+            this.dataTextBox = new System.Windows.Forms.RichTextBox();
+            this.focusLable = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,14 +71,14 @@ namespace MyNotepad
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.NewMenuItemClick);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenMenuItemClick);
             // 
@@ -88,7 +89,7 @@ namespace MyNotepad
             this.xMLToolStripMenuItem,
             this.jSONToolStripMenuItem});
             this.changeFormatToolStripMenuItem.Name = "changeFormatToolStripMenuItem";
-            this.changeFormatToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.changeFormatToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.changeFormatToolStripMenuItem.Text = "Change format";
             // 
             // tXTToolStripMenuItem
@@ -115,13 +116,13 @@ namespace MyNotepad
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.closeToolStripMenuItem.Text = "Close";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveMenuItemClick);
             // 
@@ -132,13 +133,25 @@ namespace MyNotepad
             this.dataTextBox.Name = "dataTextBox";
             this.dataTextBox.Size = new System.Drawing.Size(1072, 615);
             this.dataTextBox.TabIndex = 1;
+            this.dataTextBox.Text = "";
             this.dataTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // focusLable
+            // 
+            this.focusLable.AutoSize = true;
+            this.focusLable.Location = new System.Drawing.Point(1014, 8);
+            this.focusLable.Name = "focusLable";
+            this.focusLable.Size = new System.Drawing.Size(46, 17);
+            this.focusLable.TabIndex = 2;
+            this.focusLable.Text = "label1";
+            this.focusLable.Visible = false;
             // 
             // NotepadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 643);
+            this.Controls.Add(this.focusLable);
             this.Controls.Add(this.dataTextBox);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
@@ -166,7 +179,8 @@ namespace MyNotepad
         private ToolStripMenuItem tXTToolStripMenuItem;
         private ToolStripMenuItem xMLToolStripMenuItem;
         private ToolStripMenuItem jSONToolStripMenuItem;
-        private ScintillaNET.Scintilla dataTextBox;
+        private RichTextBox dataTextBox;
+        public Label focusLable;
     }
 }
 

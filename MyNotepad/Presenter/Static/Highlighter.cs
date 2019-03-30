@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
-using ScintillaNET;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace MyNotepad.Logic
 {
@@ -8,57 +9,86 @@ namespace MyNotepad.Logic
     /// </summary>
     static public class Highlighter
     {
+        static private readonly string xmlTags = @"<.*?>";
+        static private readonly string xmlComments = @"{{! .*? }}";
+        static private readonly string jsonText = "\".*?\"";
+        static private readonly Color originalColor = Color.Black;
+
+        /// <summary>
+        /// Apply highlighting
+        /// </summary>
+        /// <param name="textArea">Richtexbox object</param>
+        /// <param name="type">Format type to be applyed</param>
+        static public void Apply(RichTextBox textArea, Format type)
+        {
+            int originalIndex = textArea.SelectionStart;
+            int originalLength = textArea.SelectionLength;
+
+            switch (type)
+            {
+                case Format.Txt:
+                    HighlightTxt(textArea);
+                    break;
+                case Format.Json:
+                    HighlightJson(textArea);
+                    break;
+                case Format.Xml:
+                    HighlightXml(textArea);
+                    break;
+            }
+
+            textArea.SelectionStart = originalIndex;
+            textArea.SelectionLength = originalLength;
+            textArea.SelectionColor = originalColor;
+        }
+
         /// <summary>
         /// Apply xml syntax highlighting
         /// </summary>
-        /// <param name="textArea">Scintilla object</param>
-        static public void HighlightXml(Scintilla textArea)
+        /// <param name="textArea">Richtexbox object</param>
+        static private void HighlightXml(RichTextBox textArea)
         {
-            textArea.StyleResetDefault();
-            textArea.StyleClearAll();
+            MatchCollection tagMatches = Regex.Matches(textArea.Text, xmlTags, RegexOptions.Compiled);
+            MatchCollection commentMatches = Regex.Matches(textArea.Text, xmlComments, RegexOptions.Multiline);
 
-            textArea.Styles[Style.Xml.Attribute].ForeColor = Color.Red;
-            textArea.Styles[Style.Xml.Entity].ForeColor = Color.Red;
-            textArea.Styles[Style.Xml.Comment].ForeColor = Color.Green;
-            textArea.Styles[Style.Xml.Tag].ForeColor = Color.Blue;
-            textArea.Styles[Style.Xml.TagEnd].ForeColor = Color.Blue;
-            textArea.Styles[Style.Xml.DoubleString].ForeColor = Color.DeepPink;
-            textArea.Styles[Style.Xml.SingleString].ForeColor = Color.DeepPink;
+            foreach (Match m in tagMatches)
+            {
+                textArea.SelectionStart = m.Index;
+                textArea.SelectionLength = m.Length;
+                textArea.SelectionColor = Color.Blue;
+            }
 
-            textArea.Lexer = Lexer.Xml;
+            foreach (Match m in commentMatches)
+            {
+                textArea.SelectionStart = m.Index;
+                textArea.SelectionLength = m.Length;
+                textArea.SelectionColor = Color.Green;
+            }
         }
-
         /// <summary>
         /// Apply json syntax highlighting
         /// </summary>
-        /// <param name="textArea">Scintilla object</param>
-        static public void HighlightJson(Scintilla textArea)
+        /// <param name="textArea">Richtexbox object</param>
+        static private void HighlightJson(RichTextBox textArea)
         {
-            textArea.StyleResetDefault();
-            textArea.StyleClearAll();
+            MatchCollection textMatches = Regex.Matches(textArea.Text, jsonText, RegexOptions.Compiled);
 
-            textArea.Styles[Style.Json.Default].ForeColor = Color.Silver;
-            textArea.Styles[Style.Json.BlockComment].ForeColor = Color.FromArgb(0, 128, 0);
-            textArea.Styles[Style.Json.LineComment].ForeColor = Color.FromArgb(0, 128, 0);
-            textArea.Styles[Style.Json.Number].ForeColor = Color.Olive;
-            textArea.Styles[Style.Json.PropertyName].ForeColor = Color.Blue;
-            textArea.Styles[Style.Json.String].ForeColor = Color.FromArgb(163, 21, 21);
-            textArea.Styles[Style.Json.StringEol].BackColor = Color.Pink;
-            textArea.Styles[Style.Json.Operator].ForeColor = Color.Purple;
-
-            textArea.Lexer = Lexer.Json;
+            foreach (Match m in textMatches)
+            {
+                textArea.SelectionStart = m.Index;
+                textArea.SelectionLength = m.Length;
+                textArea.SelectionColor = Color.Brown;
+            }
         }
-
         /// <summary>
         /// Reset styles
         /// </summary>
-        /// <param name="textArea">Scintilla object</param>
-        static public void HighlightTxt(Scintilla textArea)
+        /// <param name="textArea">Richtexbox object</param>
+        static private void HighlightTxt(RichTextBox textArea)
         {
-            textArea.StyleResetDefault();
-            textArea.StyleClearAll();
-            textArea.Lexer = Lexer.Null;
+            textArea.SelectionStart = 0;
+            textArea.SelectionLength = textArea.Text.Length;
+            textArea.SelectionColor = originalColor;
         }
-
     }
 }

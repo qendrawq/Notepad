@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ScintillaNET;
+using System.Windows.Forms;
 
 namespace MyNotepad.Logic
 {
@@ -10,7 +10,7 @@ namespace MyNotepad.Logic
         event Func<Task<string>> OpenFile;
         event Action NewFile;
         event Action ApplicationStop;
-        event Action<Scintilla,Format> FormatChanged;
+        event Action<Control,Format> FormatChanged;
 
         void ShowError(string errorMessage);
     }

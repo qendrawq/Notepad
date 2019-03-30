@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyNotepad.Logic;
-using ScintillaNET;
 
 namespace MyNotepad
 {
@@ -17,7 +17,7 @@ namespace MyNotepad
         public event Func<Task<string>> OpenFile;
         public event Action NewFile;
         public event Action ApplicationStop;
-        public event Action<Scintilla, Format> FormatChanged;
+        public event Action<Control, Format> FormatChanged;
 
         public NotepadForm()
         {
@@ -67,10 +67,15 @@ namespace MyNotepad
         }
         private void OpenMenuItemClick(object sender, EventArgs e)
         {
-            var text = OpenFile().Result;         
-            FormatChanged(dataTextBox, Format.Default);
-            dataTextBox.Text = text;
-            HasChanged = false;
+            var text = OpenFile().Result;
+            if (!String.IsNullOrEmpty(text))
+            {
+                dataTextBox.Clear();
+                focusLable.Focus();
+                FormatChanged(dataTextBox, Format.Default);
+                dataTextBox.Text = text;
+                HasChanged = false;
+            }          
         }
         private void SaveMenuItemClick(object sender, EventArgs e)
         {
@@ -96,19 +101,24 @@ namespace MyNotepad
 
         private void TxtFormatMenuItem_Click(object sender, EventArgs e)
         {
+            focusLable.Focus();
             FormatChanged(dataTextBox, Format.Txt);
         }
         private void XmlFormatMenuItem_Click(object sender, EventArgs e)
         {
+            focusLable.Focus();
             FormatChanged(dataTextBox, Format.Xml);
         }
         private void JsonFormatMenuItem_Click(object sender, EventArgs e)
         {
+            focusLable.Focus();
             FormatChanged(dataTextBox, Format.Json);
         }
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             HasChanged = true;
+            focusLable.Focus();
+            FormatChanged(dataTextBox, Format.Default);
         }
     }
 }

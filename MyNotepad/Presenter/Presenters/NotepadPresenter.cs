@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MyNotepad.DataLayer;
 using MyNotepad.Forms;
-using ScintillaNET;
 using File = MyNotepad.DataLayer.File;
 
 namespace MyNotepad.Logic
@@ -29,25 +29,15 @@ namespace MyNotepad.Logic
             _view.FormatChanged += ApplyHighlights;
         }
 
-        private void ApplyHighlights(Scintilla textBox, Format format)
+        private void ApplyHighlights(Control textBox, Format format)
         {
             if (format != Format.Default)
             {
                 CurrentFile.Format = format;
             }
 
-            switch (CurrentFile.Format)
-            {
-                case Format.Xml:
-                    Highlighter.HighlightXml(textBox);
-                    break;
-                case Format.Json:
-                    Highlighter.HighlightJson(textBox);
-                    break;
-                case Format.Txt:
-                    Highlighter.HighlightTxt(textBox);
-                    break;
-            }
+            Highlighter.Apply((RichTextBox)textBox, CurrentFile.Format);
+            textBox.Focus();
         }
 
         /// <summary>
